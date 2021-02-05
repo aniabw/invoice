@@ -1,19 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 
-<table style="width:100%">
-  <tr>
-    <th>Internal Reference</th>
-    <th>Supplier Reference</th>
-    <th>Gross Amount</th>
-  </tr>
-  {% for invoice in invoice_list %}
-  <tr>
-    <td>invoice.internal_reference</td>
-    <td>invoice.supplier_reference</td>
-    <td>invoice.gross_amount</td>
-  </tr>
-  {% endfor %}
-</table>
+<div class="row mx-md-n5">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
 
+          <h2 class="sub-header">Invoices</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                <th>Internal Reference</th>
+                <th>Supplier Reference</th>
+                <th>Gross Amount</th>
+                <th>Company</th>
+              </tr>
+              <thead>
+              <tbody>
+              {% for invoice in invoice_list %}
+              <tr>
+                <td>{{ invoice.internal_reference }}</td>
+                <td>{{ invoice.supplier_reference }}</td>
+                <td>£{{ invoice.gross_amount }}</td>
+                <td><a href="{% url 'invoice_list_filtered_by_company' invoice.company_id %}">{{ invoice.company.name }}</a></td>
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+</div>
 {% endblock %}
